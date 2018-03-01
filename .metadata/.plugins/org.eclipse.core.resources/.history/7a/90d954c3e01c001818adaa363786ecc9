@@ -1,0 +1,101 @@
+package edu.buffalo.cse116;
+
+import org.junit.Test;
+
+import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+
+public class BoardTest {
+
+	GameController controller = new GameController();
+	Board d = new Board ("src/GameWords1.txt");
+	Location[][] l = d.places;
+
+	@Test
+	public void testPlaces() {
+		assertNotNull(l[0]);
+		assertNotNull(l[1]);
+		assertNotNull(l[2]);
+		assertNotNull(l[3]);
+		assertNotNull(l[4]);
+		
+		assertEquals("First row of Board should have five columns.", 5, l[0].length);
+		assertEquals("Second row of Board should have five columns.", 5, l[1].length);
+		assertEquals("Third row of Board should have five columns.", 5, l[2].length);
+		assertEquals("Fourth row of Board should have five columns.", 5, l[3].length);
+		assertEquals("Fifth row of Board should have five columns.", 5, l[4].length);
+	}
+	
+	@Test
+	public void testMembers() {
+		int countRed = 0;
+		int countBlue = 0;
+		int countAssassin = 0;
+		int countNeut = 0;
+		
+		for (int i = 0; i < l.length; i++) {
+			for (int j = 0; j < l[0].length; j++) {
+				if (l[i][j].getAlliance() == "red") {
+					countRed += 1;
+				} else if (l[i][j].getAlliance() == "blue") {
+					countBlue += 1;
+				} else if (l[i][j].getAlliance() == "neutral") {
+					countNeut += 1;
+				} else if (l[i][j].getAlliance() == "assassin") {
+					countAssassin += 1;
+				} else {
+					fail("Unallied Location found. Stopping program... .");
+				}
+			}
+		}
+
+		assertEquals("Board should have 9 Locations allied to the Red team.", 9, countRed);
+		assertEquals("Board should have 8 Locations allied to the Blue team.", 8, countBlue);
+		assertEquals("Board should have 9 Locations allied to the Red team.", 1, countAssassin);
+		assertEquals("Board should have 9 Locations allied to the Red team.", 7, countNeut);
+	}
+
+	@Test
+	public void testReadFile() {
+		ArrayList<String> test = d.readFile("src/GameWords1.txt");
+		assertEquals("ReadFile(ArrayList<String> k) should return an ArrayList of length 25", 25, test.size(), 0);
+	}
+	
+	@Test
+	public void testLocationGetAndSetMethods() {
+		
+		Location loc = new Location("APPLE", "Red", true);
+		assertEquals("Codename should be Red.", "Red", loc.getAlliance());
+		assertEquals("loc should be revealed.", true, loc.getRevealed());
+		
+		loc.setAlliance("Blue");
+		loc.setCodename("ORANGE");
+		loc.setRevealed(false);
+		
+		assertEquals("Codename should be ORANGE.", "ORANGE", loc.getCodename());
+		assertEquals("Alliance should be Blue.", "Blue", loc.getAlliance());
+		assertEquals("loc shouldn't be revealed.", false, loc.getRevealed());
+	}
+	
+	@Test
+	public void testRedFirst() {
+		assertEquals("It should be red turn's first!", "Red", GameController.turn);
+}
+	@Test
+	public void testClue(){
+		assertFalse(d.isIllegal(d.places[2][3].getCodename()));
+		assertFalse(d.isIllegal(d.places[4][3].getCodename()));
+		d.places[2][2].setRevealed(true);
+		assertTrue(d.isIllegal(d.places[2][2].getCodename()));
+		assertTrue(d.isIllegal("ksdfchg"));
+	}
+	
+	@Test
+	public void testWinState(){
+		Board.countAssassin = 0;
+		GameController.turn = "red";
+		
+		assertEquals()
+	}
+}

@@ -1,0 +1,99 @@
+package edu.buffalo.cse116;
+
+//import java.util.Scanner;
+
+public class GameController {
+
+	static Board board = new Board("src/GameWords1.txt");
+	static String turn = "Red";
+	static int count = 0;
+	
+	static WinState winner = new WinState(null, null);
+	
+	public static void main(String[] args) {
+
+		while (!winner.getState()) {
+
+			if (turn == "Red") {
+
+				BeginTurn("Red");
+
+			} else if (turn == "Blue") {
+
+				BeginTurn("Blue");
+			}
+		}
+		System.out.println(winner.getTeam()+ " has won!");
+	}
+
+	public static void BeginTurn(String team) {
+		
+		
+		//Scanner reader = new Scanner(System.in);
+		//System.out.print("Guess a codename: ");
+		String guess = "";//scanner isn't working for whatever reason, so for now just setting guess equal to an empty string
+		
+		//technically a turn method should also include clue giving functionality but this can be implemented later
+		
+		//guess = reader.nextLine();
+		//reader.close();
+		
+		for (int i = 0; i < board.places.length; i++) {
+
+			for (int j = 0; j < board.places[0].length; j++) {
+
+				if (board.places[i][j].getCodename() == guess) {
+
+					board.places[i][j].setRevealed(true);
+
+					if (board.places[i][j].getAlliance() == "red" && Board.countRed != 0) {
+
+						Board.countRed -= 1;
+						if (Board.countRed == 0) {
+							
+							winner.setState(true);
+							winner.setTeam("red");
+							
+						}
+
+						// if countRed ends up at 0, end game, red wins
+
+					} else if (board.places[i][j].getAlliance() == "blue" && Board.countBlue != 0) {
+
+						Board.countBlue -= 1;
+						
+						// if count blue ends up at 0, end game, blue wins
+						
+						if (Board.countRed == 0) {
+							
+							winner.setState(true);
+							winner.setTeam("blue");
+							
+						}
+						
+					} else if (board.places[i][j].getAlliance() == "assassin" && Board.countAssassin != 0) {
+
+						Board.countAssassin -= 1;
+						
+						winner.setState(true);
+						
+						if (team.equals("blue")) {
+						
+							winner.setTeam("red");
+						} else {
+						
+							winner.setTeam("blue");
+						}
+					
+					// if the assassin is revealed, the team who reveals the
+					// assassin should immediately lose, ending the game
+					} else {
+
+						Board.countNeutral -= 1;
+						winner.setState(false);
+					}
+				}
+			}
+		}
+	}
+}

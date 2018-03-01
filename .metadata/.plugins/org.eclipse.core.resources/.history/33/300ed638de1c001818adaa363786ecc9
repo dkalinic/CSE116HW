@@ -1,0 +1,49 @@
+ public WinState WiningState() {
+	  WinState w = new WinState(null, null);
+		if (Board.countRed == 0) {
+			win = true;
+			w = new WinState(win,"red");
+		} 
+		else if (Board.countBlue == 0) {
+			win = true;
+			w = new WinState(win,"blue");
+		} 
+		else if (Board.countAssassin == 0) {
+			win = true;
+			if (turn == "red") {
+			
+				w = new WinState(win,"red");
+			}
+			}else {
+				
+				w = new WinState(win,"blue");
+			}
+		
+
+		if (Board.countRed == 0) {
+
+			win = true;
+
+			w = new WinState(win,"red");
+
+		} else if (Board.countBlue == 0) {
+
+			win = true;
+
+			w = new WinState(win,"blue");
+
+		} else if (Board.countAssassin == 0) {
+
+			win = true;
+
+			if (turn == "red") {
+
+				w = new WinState(win,"blue");
+
+			} else if (turn == "blue") {
+
+				w = new WinState(win,"red");
+			}
+		}
+		return w;
+	}

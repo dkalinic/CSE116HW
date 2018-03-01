@@ -1,0 +1,32 @@
+package edu.buffalo.cse116;
+
+public class WinState {
+
+	private Boolean WinState;
+	private String team;
+
+public WinState(Boolean State, String alliance) {
+	this.WinState=State;
+	this.team = alliance;
+}
+
+public Boolean getState() {
+	return this.WinState;
+}
+
+public String getTeam() {
+	return this.team;
+}
+
+public void setState(Boolean state) {
+	this.WinState=state;
+}
+
+public void setTeam(String teams) {
+	this.team=teams;
+}
+
+
+}
+
+

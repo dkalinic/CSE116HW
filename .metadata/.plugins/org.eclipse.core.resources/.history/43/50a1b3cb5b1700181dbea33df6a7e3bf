@@ -1,0 +1,15 @@
+package edu.buffalo.cse116;
+
+public class Main {
+	public static void main (String[]args){
+		System.out.println("this is a print line");
+		System.out.println("and ths is another");
+
+		System.out.println("and this is another");
+
+		System.out.println("Lada");
+
+		
+	}	
+	
+}

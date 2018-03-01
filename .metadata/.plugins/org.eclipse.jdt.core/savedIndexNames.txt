@@ -1,0 +1,4 @@
+INDEX VERSION 1.127+/home/csdue/dkalinic/workspace/.metadata/.plugins/org.eclipse.jdt.core
+2396117482.index
+4080365595.index
+2963556550.index

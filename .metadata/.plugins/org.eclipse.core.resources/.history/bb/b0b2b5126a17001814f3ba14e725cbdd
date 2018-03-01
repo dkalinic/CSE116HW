@@ -1,0 +1,115 @@
+package edu.buffalo.cse116;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class Board {
+	
+	Location [][] places = makeBoard(readFile("../GameWords1.txt"));;
+	
+	public Board(){
+		places=this.makeBoard(this.readFile("../GameWords1.txt"));
+	}
+
+	//passing in the codenames arraylist and assigning each word an alliance and a location
+	
+	public Location [][] makeBoard(ArrayList<String>k){
+		Collections.shuffle(k);
+		ArrayList<String>alliances=new ArrayList<String>();
+		
+		for(int i=0;i<9;i++){
+			alliances.add("red");
+		}
+		
+		for(int i=0;i<8;i++){
+			alliances.add("blue");
+		}
+		
+		for(int i=0;i<7;i++){
+			alliances.add("neutral");
+		}
+		
+		alliances.add("assassin");
+		Collections.shuffle(alliances);
+		
+		Location [][] g=new Location[5][5];
+		ArrayList<Location>holder=new ArrayList<Location>();
+		
+		for(int i=0;i<25;i++){
+			Location z=new Location(k.get(i),alliances.get(i),false);
+			holder.add(z);
+		}
+		
+		Collections.shuffle(holder);
+		
+		for(int i=0;i<5;i++){
+			for(int j=0;j<5;j++){
+				g[i][j]=holder.get(5*i+j);
+			}
+		}
+		return g;
+	}
+	
+	public String isIllegal(String h){
+		String f="legal";
+		for(int i=0;i<5;i++){
+			for(int j=0;j<5;j++){
+				if(h==this.places[i][j].getCodename()&&!this.places[i][j].getRevealed()){
+					f="illegal";
+				}
+	}
+	
+		}
+		return f;
+	}
+	//we weren't sure what this did, so we commented it out for now.
+//	public void initBoard(ArrayList randomizer) {
+//		for (int i = 0; i < board.length; i++) {
+//			for (int j = 0; j < board[0].length; j++) {
+//				randomizer.add(board[i][j]);
+//			}
+//		}
+//			Collections.shuffle(randomizer);
+//			
+//			for (int i = 0; i < 5; i++) {
+//				for (int j = 0; j < 5; j++) {
+					
+//			}
+//		}
+//	}
+	public ArrayList<String> readFile(String filename){
+		
+		//These Two ArrayList is for hodling the words, the first one is to hold the words that generate for the file;
+		//The second one is hold 25 pre-shuffle words;
+		
+		ArrayList<String> code = new ArrayList<String>();
+		ArrayList<String> codename = new ArrayList<String>();
+		
+		try {
+			for(String line:Files.readAllLines(Paths.get(filename))) {
+				code.add(line);
+				
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		//Shuffle the words that generate from the file
+		Collections.shuffle(code);
+		
+		
+		//This loop is for adding 25 pre-shuffle words
+		for(int i =0; i<25;i++) {
+			codename.add(code.get(i));
+		}
+		
+		return codename;
+		
+	}
+	
+	
+	
+}

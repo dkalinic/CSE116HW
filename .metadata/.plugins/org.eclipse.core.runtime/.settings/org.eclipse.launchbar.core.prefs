@@ -1,0 +1,4 @@
+configDescList=org.eclipse.launchbar.core.descriptorType.default\:New_configuration,org.eclipse.launchbar.core.descriptorType.default\:Driver,org.eclipse.launchbar.core.descriptorType.default\:Driver (1),org.eclipse.launchbar.core.descriptorType.default\:Driver (2),org.eclipse.launchbar.core.descriptorType.default\:Driver (3),org.eclipse.launchbar.core.descriptorType.default\:GameController,org.eclipse.launchbar.core.descriptorType.default\:BoardTest,org.eclipse.launchbar.core.descriptorType.default\:BoardTest (1),org.eclipse.launchbar.core.descriptorType.default\:HW5P1
+eclipse.preferences.version=1
+org.eclipse.launchbar.core.descriptorType.default\:New_configuration/activeLaunchMode=run
+org.eclipse.launchbar.core.descriptorType.default\:New_configuration/activeLaunchTarget=org.eclipse.remote.LocalServices\:Local
