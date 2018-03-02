@@ -27,13 +27,27 @@ public class CharsInStringIterator implements Iterator<Character> {
   /** Return true if there is another character for the instance to return. */
   public boolean hasNext() {
 
+	  if (cursor < characterSource.length()) {
+		  
+		  return true;
+	  
+	  } else {
+		  
 	  return false;
-  }
+	  
+	  }
+ }
 
   /** Returns the next character in the String. */
   public Character next() throws NoSuchElementException {
-	
-	  return null;
+	  
+		  if (hasNext()) {
+			  char c = characterSource.charAt(cursor);
+			  cursor += 1;
+			  return c;
+		  } else {
+			  throw new NoSuchElementException();
+		  }
   }
 
   public void remove() {
