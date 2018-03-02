@@ -18,10 +18,10 @@ public class StatUtils {
    */
   public static double computeMean(double[] arr) throws DivideByZeroException, NoDataException {
 	  if (arr == null) {
-		  throw new NoDataException;
+		  throw new NoDataException();
 	  }
 	  if (arr.length == 0) {
-		  throw new DivideByZeroException;
+		  throw new DivideByZeroException();
 	  }
 	  
 	  double sum = 0;
@@ -45,10 +45,10 @@ public class StatUtils {
   public static double computeStdDev(double[] arr) throws InvalidDataSetException, NoDataException {
 	  
 	  if (arr == null) {
-		  throw new NoDataException;
+		  throw new NoDataException();
 	  }
-	  if (arr.length <= 1) {
-		  throw new InvalidDataSetException;
+	  if (arr.length == 1) {
+		  throw new InvalidDataSetException();
 	  }
 	  
 	  double stddev;
@@ -57,11 +57,18 @@ public class StatUtils {
 	  
 	  for (int i = 0; i < arr.length; i++) {
 		  
-		  step1 += Math.pow((arr[i] - computeMean(arr)), 2);
+		  try {
+			  
+			  step1 += Math.pow((arr[i] - computeMean(arr)), 2);
+		
+		  } catch (DivideByZeroException e) {
+			return 0;
+		}
 	  }
 	  
 	  double step2 = step1 / (double) (arr.length - 1);
 	  
 	  stddev = Math.sqrt(step2);
+	  return stddev;
   }
 }
